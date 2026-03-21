@@ -52,7 +52,7 @@
 
   <script>
     async function loadMembers() {
-      const res = await fetch("https://api.chess.com/pub/club/YOUR-CLUB/members");
+      const res = await fetch("https://api.chess.com/pub/club/nashediyon-ki-toli/members");
       const data = await res.json();
 
       let members = data.all_time.slice(-3).reverse();
