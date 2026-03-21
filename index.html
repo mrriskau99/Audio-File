@@ -76,10 +76,10 @@
   <script>
     async function loadMembers() {
       try {
-        const res = await fetch("https://api.chess.com/pub/club/testing-block/members");
+        const res = await fetch("https://api.chess.com/pub/club/testing-block/members/all");
         const data = await res.json();
 
-        let members = data.weekly.slice(-3).reverse();
+        let members = data.slice(-6).reverse().slice(0, 3);
 
         const container = document.getElementById("members");
         container.innerHTML = "";
