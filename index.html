@@ -2,86 +2,124 @@
 <html>
 <head>
   <title>New Buddies</title>
+
   <style>
     body {
       margin: 0;
-      font-family: Arial;
-      background: #0d1117;
-      color: white;
-    }
-
-    .card {
-      border: 1px solid #444;
-      border-radius: 14px;
-      padding: 10px;
-      margin: 10px;
-      display: flex;
-      align-items: center;
-      transition: 0.3s;
-    }
-
-    .card:hover {
-      transform: scale(1.03);
-      box-shadow: 0 0 10px #58a6ff;
-    }
-
-    img {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      margin-right: 10px;
-    }
-
-    a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
+      font-family: 'Segoe UI', sans-serif;
+      background: radial-gradient(circle at top, #0d1117, #020409);
+      color: #e6edf3;
     }
 
     .title {
       text-align: center;
-      font-size: 18px;
-      margin-top: 10px;
+      padding: 10px;
+      font-size: 16px;
+      letter-spacing: 1px;
+      color: #9ecbff;
+    }
+
+    .card {
+      display: flex;
+      align-items: center;
+      margin: 10px;
+      padding: 10px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(6px);
+      transition: all 0.3s ease;
+      transform: translateY(10px);
+      opacity: 0;
+      animation: fadeIn 0.5s forwards;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 12px rgba(88,166,255,0.6);
+      border-color: #58a6ff;
+    }
+
+    img {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      margin-right: 10px;
+      border: 2px solid #30363d;
+    }
+
+    a {
+      text-decoration: none;
+      color: #e6edf3;
+      font-weight: 600;
+    }
+
+    .rating {
+      font-size: 12px;
+      color: #8b949e;
+    }
+
+    @keyframes fadeIn {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
     }
   </style>
 </head>
 
 <body>
-  <div class="title">New Buddies 🤝</div>
+
+  <div class="title">New Buddies ✨</div>
   <div id="members"></div>
 
   <script>
     async function loadMembers() {
-      const res = await fetch("https://api.chess.com/pub/club/nashediyon-ki-toli/members");
-      const data = await res.json();
+      try {
+        const res = await fetch("https://api.chess.com/pub/club/testing-block/members");
+        const data = await res.json();
 
-      let members = data.all_time.slice(-3).reverse();
+        let members = data.weekly.slice(-3).reverse();
 
-      const container = document.getElementById("members");
-      container.innerHTML = "";
+        const container = document.getElementById("members");
+        container.innerHTML = "";
 
-      for (let m of members) {
-        const profile = await fetch(`https://api.chess.com/pub/player/${m.username}`);
-        const pData = await profile.json();
+        for (let m of members) {
+          const profileRes = await fetch(`https://api.chess.com/pub/player/${m.username}`);
+          const profile = await profileRes.json();
 
-        const div = document.createElement("div");
-        div.className = "card";
+          const statsRes = await fetch(`https://api.chess.com/pub/player/${m.username}/stats`);
+          const stats = await statsRes.json();
 
-        div.innerHTML = `
-          <img src="${pData.avatar || ''}">
-          <div>
-            <a href="https://www.chess.com/member/${m.username}" target="_blank">
-              @${m.username}
-            </a>
-          </div>
-        `;
+          let rapid = stats.chess_rapid?.last?.rating || "-";
+          let blitz = stats.chess_blitz?.last?.rating || "-";
 
-        container.appendChild(div);
+          const div = document.createElement("div");
+          div.className = "card";
+
+          div.innerHTML = `
+            <img src="${profile.avatar || 'https://www.chess.com/bundles/web/images/noavatar_l.84a92436.gif'}">
+            <div>
+              <a href="https://www.chess.com/member/${m.username}" target="_blank">
+                @${m.username}
+              </a>
+              <div class="rating">
+                ⚡ ${blitz} | 🚀 ${rapid}
+              </div>
+            </div>
+          `;
+
+          container.appendChild(div);
+        }
+
+      } catch (err) {
+        console.error(err);
       }
     }
 
     loadMembers();
-    setInterval(loadMembers, 5000); // refresh every 5 sec
+    setInterval(loadMembers, 8000);
   </script>
+
 </body>
 </html>
