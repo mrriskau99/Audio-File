@@ -76,7 +76,7 @@
   <script>
     async function loadMembers() {
       try {
-        const res = await fetch("https://api.chess.com/pub/club/testing-block/members/all");
+        const res = await fetch("https://api.chess.com/pub/club/nashediyon-ki-toli/members/all");
         const data = await res.json();
 
         let members = data.slice(-6).reverse().slice(0, 3);
