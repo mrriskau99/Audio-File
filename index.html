@@ -1,125 +1,319 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>New Buddies</title>
+<meta charset="UTF-8">
+<title>NKT Birthday</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: radial-gradient(circle at top, #0d1117, #020409);
-      color: #e6edf3;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&family=Pacifico&display=swap" rel="stylesheet">
 
-    .title {
-      text-align: center;
-      padding: 10px;
-      font-size: 16px;
-      letter-spacing: 1px;
-      color: #9ecbff;
-    }
+<style>
+body {
+  margin:0;
+  height:100vh;
+  background:#f4f7fb;
+  font-family:'Poppins',sans-serif;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+}
 
-    .card {
-      display: flex;
-      align-items: center;
-      margin: 10px;
-      padding: 10px;
-      border-radius: 14px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.08);
-      backdrop-filter: blur(6px);
-      transition: all 0.3s ease;
-      transform: translateY(10px);
-      opacity: 0;
-      animation: fadeIn 0.5s forwards;
-    }
+/* CARD */
+.card {
+  background:white;
+  padding:32px;
+  border-radius:22px;
+  width:240px;
+  text-align:center;
+  box-shadow:0 12px 30px rgba(0,0,0,0.12);
+  transition:0.3s;
+}
 
-    .card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 12px rgba(88,166,255,0.6);
-      border-color: #58a6ff;
-    }
+/* PFP */
+.pfp {
+  width:85px;
+  height:85px;
+  border-radius:50%;
+  transition:0.3s;
+}
 
-    img {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      margin-right: 10px;
-      border: 2px solid #30363d;
-    }
+/* USERNAME */
+.username {
+  margin-top:14px;
+  font-size:18px;
+  font-weight:400;
+  background:linear-gradient(90deg,#0077ff,#00c6ff,#0077ff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:glow 3s infinite;
+}
 
-    a {
-      text-decoration: none;
-      color: #e6edf3;
-      font-weight: 600;
-    }
+@keyframes glow {
+  50% { filter:brightness(1.6); }
+}
 
-    .rating {
-      font-size: 12px;
-      color: #8b949e;
-    }
+/* NO BDAY */
+.no-bday {
+  font-size:16px;
+  color:#6b7a99;
+  letter-spacing:0.5px;
+  animation:pulse 2s infinite;
+}
 
-    @keyframes fadeIn {
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-  </style>
+@keyframes pulse {
+  50% { opacity:0.6; }
+}
+
+/* BUTTON */
+.btn {
+  margin-top:18px;
+  padding:10px 26px;
+  border-radius:25px;
+  background:#0b1225;
+  color:#fff;
+  cursor:pointer;
+  transition:0.25s;
+  box-shadow:0 0 10px rgba(0,119,255,0.3);
+}
+
+.btn:hover {
+  transform:translateY(-3px) scale(1.05);
+  box-shadow:0 0 25px rgba(0,153,255,0.6);
+}
+
+.btn:active {
+  transform:scale(0.92);
+}
+
+/* SCENE */
+.scene {
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle at top,#1b2a4a,#0a1122);
+  display:none;
+  flex-direction:column;
+  align-items:center;
+  padding-top:80px;
+  color:#dbe9ff;
+  animation:fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity:0; }
+  to { opacity:1; }
+}
+
+/* HEADER */
+.header {
+  font-size:13px;
+  letter-spacing:2px;
+  opacity:0.7;
+  margin-bottom:8px;
+}
+
+/* FLOATING PFP */
+.scene-pfp {
+  width:120px;
+  border-radius:50%;
+  box-shadow:0 0 30px #4da6ff;
+  animation:floatUp 1.8s ease forwards;
+}
+
+@keyframes floatUp {
+  from { transform:translateY(140px); opacity:0; }
+  to { transform:translateY(0); opacity:1; }
+}
+
+/* DATE */
+.date {
+  margin-top:14px;
+  font-size:18px;
+  opacity:0;
+  transform:translateY(10px);
+  transition:0.8s;
+}
+
+/* TITLE */
+.title {
+  font-family:'Pacifico',cursive;
+  font-size:44px;
+  margin-top:8px;
+  opacity:0;
+  transform:translateY(30px);
+  transition:0.9s;
+  text-shadow:0 0 20px rgba(77,166,255,0.6);
+}
+
+/* TEXT */
+.text {
+  margin-top:20px;
+  width:60%;
+  text-align:center;
+  line-height:1.7;
+  font-size:15px;
+}
+
+/* CLOSING LINE */
+.closing {
+  margin-top:10px;
+  font-style:italic;
+  opacity:0.85;
+}
+
+/* EXIT */
+.exit {
+  margin-top:32px;
+  padding:10px 24px;
+  border-radius:25px;
+  background:#dbe9ff;
+  color:#0b1225;
+  cursor:pointer;
+  opacity:0;
+  transition:0.6s;
+}
+
+.exit:hover {
+  transform:scale(1.05);
+}
+
+/* SPARKLES */
+.sparkle {
+  position:absolute;
+  width:3px;
+  height:3px;
+  background:white;
+  border-radius:50%;
+  box-shadow:0 0 10px white;
+  animation:twinkle 2s infinite;
+}
+
+@keyframes twinkle {
+  50% { opacity:0.3; transform:scale(0.7); }
+}
+</style>
 </head>
 
 <body>
 
-  <div class="title">New Buddies ✨</div>
-  <div id="members"></div>
+<!-- CARD -->
+<div class="card">
+  <div id="content"></div>
+</div>
 
-  <script>
-    async function loadMembers() {
-      try {
-        const res = await fetch("https://api.chess.com/pub/club/nashediyon-ki-toli/members/all");
-        const data = await res.json();
+<!-- SCENE -->
+<div class="scene" id="scene">
 
-        let members = data.slice(-6).reverse().slice(0, 3);
+  <div class="header">NKT WISHES YOU</div>
 
-        const container = document.getElementById("members");
-        container.innerHTML = "";
+  <img id="scenePfp" class="scene-pfp">
 
-        for (let m of members) {
-          const profileRes = await fetch(`https://api.chess.com/pub/player/${m.username}`);
-          const profile = await profileRes.json();
+  <div id="date" class="date"></div>
 
-          const statsRes = await fetch(`https://api.chess.com/pub/player/${m.username}/stats`);
-          const stats = await statsRes.json();
+  <div id="title" class="title">Happy Birthday</div>
 
-          let rapid = stats.chess_rapid?.last?.rating || "-";
-          let blitz = stats.chess_blitz?.last?.rating || "-";
+  <div id="message" class="text"></div>
 
-          const div = document.createElement("div");
-          div.className = "card";
+  <div id="closing" class="closing"></div>
 
-          div.innerHTML = `
-            <img src="${profile.avatar || 'https://www.chess.com/bundles/web/images/noavatar_l.84a92436.gif'}">
-            <div>
-              <a href="https://www.chess.com/member/${m.username}" target="_blank">
-                @${m.username}
-              </a>
-              <div class="rating">
-                ⚡ ${blitz} | 🚀 ${rapid}
-              </div>
-            </div>
-          `;
+  <div id="exit" class="exit" onclick="closeScene()">Close</div>
 
-          container.appendChild(div);
-        }
+</div>
 
-      } catch (err) {
-        console.error(err);
-      }
-    }
+<script>
 
-    loadMembers();
-    setInterval(loadMembers, 8000);
-  </script>
+let username = "x_serendipity_x";
+
+// FETCH USER
+fetch("https://api.chess.com/pub/player/" + username)
+.then(res=>res.json())
+.then(data=>{
+  if(!data || !data.avatar) throw "No Data";
+
+  content.innerHTML = `
+    <img src="${data.avatar}" class="pfp">
+    <div class="username">${username}</div>
+    <div class="btn" onclick="openScene()">Open</div>
+  `;
+
+  scenePfp.src = data.avatar;
+
+})
+.catch(()=>{
+  content.innerHTML = `<div class="no-bday">No birthdays today</div>`;
+});
+
+// OPEN SCENE
+function openScene(){
+  scene.style.display="flex";
+  setTimeout(showDate,1800);
+}
+
+// DATE
+function showDate(){
+  let d = new Date().toLocaleDateString("en-IN",{day:"numeric",month:"long",year:"numeric"});
+  date.innerHTML = d;
+  date.style.opacity=1;
+  date.style.transform="translateY(0)";
+  setTimeout(showTitle,700);
+}
+
+// TITLE
+function showTitle(){
+  title.style.opacity=1;
+  title.style.transform="translateY(0)";
+  setTimeout(typeMessage,800);
+}
+
+// MESSAGE
+let msg = "A refined wish from Nashediyon Ki Toli. May your path ahead be defined by clarity, growth, and moments that truly hold value.";
+
+let closingText = "Have a wonderful day and an even better year ahead.";
+
+let i=0, j=0;
+
+function typeMessage(){
+  if(i < msg.length){
+    message.innerHTML += msg.charAt(i);
+    i++;
+    setTimeout(typeMessage,28);
+  } else {
+    setTimeout(typeClosing,400);
+  }
+}
+
+function typeClosing(){
+  if(j < closingText.length){
+    closing.innerHTML += closingText.charAt(j);
+    j++;
+    setTimeout(typeClosing,28);
+  } else {
+    exit.style.opacity=1;
+  }
+}
+
+// CLOSE
+function closeScene(){
+  scene.style.display="none";
+  date.style.opacity=0;
+  date.style.transform="translateY(10px)";
+  title.style.opacity=0;
+  title.style.transform="translateY(30px)";
+  message.innerHTML="";
+  closing.innerHTML="";
+  exit.style.opacity=0;
+  i=0; j=0;
+}
+
+// SPARKLES
+for(let k=0;k<35;k++){
+  let s=document.createElement("div");
+  s.className="sparkle";
+  s.style.left=Math.random()*100+"vw";
+  s.style.top=Math.random()*100+"vh";
+  document.body.appendChild(s);
+}
+
+</script>
 
 </body>
 </html>
